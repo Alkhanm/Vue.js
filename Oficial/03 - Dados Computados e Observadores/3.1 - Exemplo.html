@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- Expressões dentro de templates são muito convenientes, mas são destinadas a operações simples. 
+       - Colocar muita lógica pode fazer com que fiquem inchados e, sua manutenção, mais complicada. 
+       - Por isso que, para qualquer lógica mais complexa, usamos dados computados 
+       - (computed properties no inglês, traduzidos como “dados” pois, durante a utilização em templates, 
+       - se parecem efetivamente com propriedades definidas em data).-->
+        <div>
+            <p> Mensagem Original: {{ message }} </p>
+            <p> Mensagem ao Contrario: {{ reversedMessage }} </p>
+             <!-- Na verdade 'dados computados' são tratados realmente como atributos e não como função msm sendo declarados como um.-->
+        </div>
+
+
+        <!-- COMPUTED: Cache de 'computed' vs Métodos -->
+        <div>
+            <p> Mensagem2 Original: {{ message }} </p>
+            <p> Mensagem2 ao Contrario: {{ reversedMessageMethod() }} </p>
+        </div>
+
+        <!--COMPUTED: Dados Computados vs. Observadores -->
+
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                message: "Olá, Vue"
+            },
+            computed: {
+                /* É possível vincular os dados computados em templates como se fossem dados comuns. 
+                 * Vue sabe que vm.reversedMessage depende de vm.message, 
+                 * então ele irá atualizar qualquer ligação que dependa de vm.reversedMessage sempre que
+                 * vm.message for alterado. E o melhor é que criamos tal relação de dependência de forma declarativa:
+                 * a função getter computada não tem efeitos colaterais, o que a torna fácil de testar/compreender.*/
+                reversedMessage: {
+                    // uma função "getter" computado (computed getter)
+                    get: function () {
+                        return this.message.split('').reverse().join('')
+                    },
+                    // Dados computados são por padrão getter-only (somente retornam valor), 
+                    // mas é possível fornecer um setter se precisar dele:
+                    set: function (msg) {
+                        this.message = msg
+                        // se executar 'vm.reserverMessage = "blabla"', o setter será automaticamente executado!
+                    }
+                },
+            },
+            methods: {
+                /* Em vez de um dado computado, é possivel definir a msm funcionalidade de 'reversedMessage' usando metódos.
+                 * A diferença está dados computados possuem cache e reatividade. 
+                 * Um dado computado ñ irá executar uma função sempre q for chamado como aconteceria com um metódo. 
+                 * A função reservedMessage só será executado quando houver alteração em 'message', pois ambos estão ligados.
+                 * Já a função 'reversedMessageMethod()' será sempre executada ao ser chamada. 
+                 * Apenas em casos em que você realmente não deseje cache, simplesmente use um método no lugar.*/
+                reversedMessageMethod() {
+                    return this.message.split('').reverse().join('')
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Aula 01 - </title>
+</head>
+
+<body>
+    <!--Cria elemento 'app'-->
+    <div id="app">
+        <h1>{{ titulo }}</h1>
+    </div>
+
+    <!--Instalação do Vue.js-->
+    <script src="https://unpkg.com/vue"></script>
+
+    <script>
+        //Instância o objeto 'vue.js'
+        new Vue({
+            el: "#app", // seleciona elemento 'app'
+            data: { // escopo onde serão criadas variaveis e atributos
+                titulo: "Aula 01 - Vuejs do jeito ninja!"
+            },
+            methods: {
+                
+            }
+        });
+    </script>
+</body>
+
+</html>

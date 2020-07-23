@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+</head>
+
+<body>
+    <!--Diretivas são atributos especiais com o prefixo v-. 
+        Espera-se que os valores atribuídos às diretivas sejam uma simples expressão Javascript  (exceto o v-for). 
+        O trabalho de uma diretiva é aplicar reativamente efeitos colaterais ao DOM, 
+        ou seja, realizar algum efeito quando o valor da expressão é modificado. -->
+    <div id="app">
+        <div>
+            <p v-if="seen">Agora você me viu</p>
+            <!-- Aqui, o contéudo do paragrafo será inserido/removido caso o atributo 'seen' for verdadeiro -->
+        </div>
+
+        <!-- DIRETIVAS: PARÂMETROS 
+           - Algumas diretivas podem aceitar parâmetros, denotado pelo simbolo de dois pontos após a diretiva.
+           - Por exemplo, a diretiva 'v-bind' atualiza um atributo HTML reativamente: -->
+        <a v-bind:href="url"> Vue.js </a><br> <!-- O atributo 'href' recebeu a propriedade 'url' -->
+
+
+        <!-- DIRETIVAS: ARGUMENTOS DINÂMICOS 
+           - É possível usar uma expressão JavaScript no argumento de uma diretiva envolvendo-a com colchetes: -->
+        <a v-bind:[attributename]="url">Vue.js</a>
+        <!-- Aqui o 'attributeName' será usado como o argumento do HTML.
+                 Caso na instância Vue.js esse valor seja 'url' isso seria equivalente a versão anterior:
+                 'v-bind:href="url"' -->
+
+
+        <!-- DIRETIVAS: ABREVIAÇÕES
+            - Existem algumas abreviações para evitar a verbosidade no uso do prefixo v- em diretivas do Vue. -->
+        
+        <!-- sintaxe completa -->
+        <br><a v-bind:href="url"> URL </a>
+
+        <!-- abreviação -->
+        <br><a :href="url"> URL </a>
+
+        <!-- abreviação com argumentos dinâmicos (2.6.0+) -->
+        <br><a :[attributename]="url"> URL </a>
+
+        <!-- sintaxe completa -->
+        <br><a v-on:click="doSomething"> clique </a>
+
+        <!-- abreviação -->
+        <br><a @click="doSomething"> clique </a>
+
+        <!-- abreviação com argumentos dinâmicos (2.6.0+) -->
+        <br><a @[event]="doSomething"> clique </a>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                seen: true,
+                url: 'https://br.vuejs.org',
+                attributename: 'href',
+                event:'click',
+            },
+            methods: {
+                doSomething(){
+                    console.log('doSomething...')
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

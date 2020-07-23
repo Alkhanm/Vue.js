@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+    <!--
+    > Caso a barra de vida esteja menor que 20% ela passa de verde para vermelho;
+    > O monstro causa mais dano que o jogador;
+-->
+    <div id="app">
+        <div class="arena">
+            <div class="painel batalha">
+                <div class="oponentes">
+                    <h2>Jogador</h2>
+                    <div class="barra-vida">
+                        {{vidaJogador}}
+                        <div class="vida" :style="[{width: vidaJogador}, {'background-color': corBarra(jogador.vida)}]">
+                        </div>
+                    </div>
+                </div>
+                <div class="oponentes">
+                    <h2>Monstro</h2>
+                    <div class="barra-vida">
+                        {{vidaMonstro}}
+                        <div class="vida" :style="[{width: vidaMonstro}, {'background-color': corBarra(monstro.vida)}]">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="painel">
+                <span v-if="jogador.vida <= 0">você perdeu</span>
+                <span v-else-if="monstro.vida <= 0">você venceu</span>
+            </div>
+            <div class="painel actions">
+                <template v-if="monstro.vida <= 0 || jogador.vida <= 0">
+                    <button @click="jogador.vida = 100, monstro.vida = 100, eventos = [], qntAtaqueEspecial = 0">
+                        INICIAR NOVO JOGO
+                    </button>
+                </template>
+                <template v-else>
+                    <button @click="atacar" class="ataque">
+                        ATAQUE
+                    </button>
+                    <button v-if="qntAtaqueEspecial < 3" @click="atacarEspecial"  class="ataque-especial">
+                        ATAQUE ESPECIAL
+                    </button>
+                    <button v-if="qntCuras < 3" @click="curar" class="curar">
+                        CURAR
+                    </button>
+                    <button @click="jogador.vida = 0" class="desistir">
+                        DESISTIR
+                    </button>
+                </template>
+            </div>
+            <div class="painel log">
+                <span v-for="atingido in eventos" v-bind:class="atingido.nome">
+                    {{atingido.nome}} foi atingido com {{atingido.dano}} de dano
+                </span>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                jogador: {
+                    vida: 100,
+                    dano: 20,
+                },
+                monstro: {
+                    vida: 100,
+                    dano: 25
+                },
+                eventos: [],
+                qntAtaqueEspecial: 0,
+                qntCuras: 0
+            },
+            methods: {
+                atacar() {
+                    const mon = this.monstro
+                    const jog = this.jogador
+
+                    let danoMonstro = (mon.dano * Math.random()).toFixed(0);
+                    let danoJogador = (jog.dano * Math.random()).toFixed(0);
+
+                    if (mon.vida > 0 && jog.vida > 0) {
+                        mon.vida -= danoJogador;
+                        jog.vida -= danoMonstro;
+                        this.eventos.unshift(
+                            {
+                                nome: 'monstro',
+                                dano: danoJogador
+                            }
+                        )
+                        this.eventos.unshift(
+                            {
+                                nome: 'jogador',
+                                dano: danoMonstro
+                            }
+                        )
+                    }
+                },
+                atacarEspecial() {
+                    const mon = this.monstro
+                    const jog = this.jogador
+                    let danoMonstro = (20 * Math.random()).toFixed(0);
+                    let danoJogador = (20 * Math.random()).toFixed(0);
+
+                    if (mon.vida > 0 && jog.vida > 0) {
+                        mon.vida -= danoJogador;
+                        jog.vida -= danoMonstro;
+                        this.eventos.unshift(
+                            {
+                                nome: 'monstro',
+                                dano: danoJogador
+                            }
+                        )
+                        this.eventos.unshift(
+                            {
+                                nome: 'jogador',
+                                dano: danoMonstro
+                            }
+                        )
+                    }
+                    this.qntAtaqueEspecial++
+                },
+                curar() {
+                    if (this.jogador.vida < 90 && this.monstro.vida < 90) {
+                        this.jogador.vida = this.jogador.vida + 10
+                        this.monstro.vida = this.monstro.vida + 10
+                        this.qntCuras++
+                    }
+                },
+                corBarra(vida) {
+                    if (vida > 20) {
+                        return 'rgb(46, 201, 46)'
+                    } else {
+                        return 'rgb(201, 82, 46)'
+                    }
+                }
+            },
+            computed: {
+                vidaMonstro() {
+                    if (this.monstro.vida > 0) {
+                        return `${this.monstro.vida}%`
+                    }
+                },
+                vidaJogador() {
+                    if (this.jogador.vida > 0) {
+                        return `${this.jogador.vida}%`
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

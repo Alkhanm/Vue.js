@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- ARRAY EM ELEMENTOS COM V-FOR -->
+        <div>
+            <ul id="app">
+                <li v-for="(item, index) in items" v-bind:key="item.message">
+                    {{ index + 1 }} - {{ item.message }}
+                </li>
+            </ul>
+            <br><br><br>
+        </div>
+
+        <!-- OBJETOS EM V-FOR -->
+        <div>
+            <ul>
+                <li v-for="(value,name,index) in object">
+                    {{ index+1 }} - {{ name }}: {{ value }}
+                </li>
+            </ul>
+        </div>
+
+        <!-- MOSTRANDO RESULTADOS FILTRADOS/ORDENADOS -->
+        <div>
+            <span v-for="n in evenNumbers">{{ n }}, </span>
+        </div>
+
+        <!-- INTERVALO NÚMERICO NO V-FOR -->
+        <div>
+            <!-- A diretiva v-for tbm aceita um valor inteiro como argumento -->
+            <span v-for="n in 10">{{ n }} </span>
+          </div>
+          <br>
+
+         <!-- UTILIZANDO <template> COM V-FOR --> 
+        <div>
+            <template v-for="item in items">
+                <li> {{item.message}}</li>
+                <li class="divider" role="presentation"></li>
+            </template>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                items: [
+                    { message: 'Algo' },
+                    { message: 'Outro algo' },
+                    { message: 'Algum coisa' },
+                    { message: 'Alguma outra coisa' },
+                ],
+                object: {
+                    title: 'Como fazer listas no Vue',
+                    author: 'Jane Doe',
+                    publishedAt: '2016-04-10'
+                },
+                numbers: [1, 2, 3, 4, 5, 6, 7, 8]
+            },
+            methods: {
+                /* Métodos de mutação, como o nome sugere, mudam o Array original no qual são chamados. 
+                 * Em comparação, também há métodos sem mutação, como filter(), concat() e slice(), 
+                 * que não modificam o Array original, mas sim retornam um novo Array. 
+                 * Ao trabalhar com métodos sem mutação, você pode substituir o Array antigo pelo novo:*/
+                filtrarLista(args){
+                    this.items = this.items
+                        .filter(item => item.message.match(args))
+                        //filtra os elementos da lista criando uma nova, e então substitui a antiga lista por essa nova
+                }
+            },
+            computed: {
+                /* Às vezes, queremos exibir uma versão filtrada ou ordenada de um Array 
+                 * sem efetivamente mudar ou reiniciar seus dados originais. 
+                 * Neste caso, você pode criar um dado computado que retorna um Array filtrado ou ordenado. Por exemplo: */
+                evenNumbers: function () {
+                    return this.numbers.filter(number => number % 2 === 0)
+                }
+            }
+        });
+        
+    </script>
+</body>
+
+</html>

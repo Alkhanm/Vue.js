@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+</head>
+
+<body>
+
+    <div id="app">
+        <form v-on:submit.prevent="addNewTodo">
+            <label>Tarefa:</label>
+            <input v-model="newTodoText" 
+                   placeholder="Ex.: Alimentar o gato">
+            </input>
+            <button>Adicionar</button>
+        </form>
+        <ul>
+            <li is="todo-item" 
+                v-for="(todo, index) in todos" 
+                v-bind:key="todo.id" 
+                v-bind:title="todo.title"
+                v-on:remove="todos.splice(index, 1)">
+            </li>
+        </ul>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        Vue.component('todo-item', {
+            template: '\
+            <li>\
+                {{ title }}\
+                <button v-on:click="$emit(\'remove\')">Remove</button>\
+            </li>\
+            ',
+            props: ['title']
+        })
+
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                newTodoText: '',
+                todos: [
+                    {
+                        id: 1,
+                        title: 'Lavar os pratos',
+                    },
+                    {
+                        id: 2,
+                        title: 'Tirar o lixo',
+                    },
+                    {
+                        id: 3,
+                        title: 'Cortar a grama'
+                    }
+                ],
+                nextTodoId: 4
+            },
+            methods: {
+                addNewTodo: function () {
+                    this.todos.push({
+                        id: this.nextTodoId++,
+                        title: this.newTodoText
+                    })
+                    this.newTodoText = ''
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <div id='app'>
+        <p> {{message}} </p>
+    </div>
+   
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        /* Uma aplicação Vue consiste em uma instância Vue raiz criada com 'new Vue()'', 
+         * opcionalmente organizada em uma árvore de componentes reutilizáveis aninhados.
+         */
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                /* Quando uma instância Vue é criada, ela adiciona todas as propriedades encontradas no objeto 'data' ao 
+                 * SISTEMA DE REATIVIDADE do Vue. Quando qualquer destas propriedades muda, a camada visual "reage", 
+                 * atualizando-se para condizer com os novos valores.  */
+                message: 'Olá, mundo!',
+                text: null
+                // Objetos adicionados posteriormente a instânciação do Vue.js ñ são adicionados ao SISTEMA DE REATIVIDADE
+                // Nessa caso, é melhor definir msm q com um valor nulo qualquer objeto q deverá ser reativo no Vue durante a instanciação
+
+            }
+        })
+    </script>
+   
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <style>
+        p {
+            display: inline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <div>
+            <p v-for="(n, index) in 10">{{ n }} - </p>
+            <!-- Cria dez elementos com a tag 'p' -->
+        </div>
+        <hr>
+        <div>
+            <div>
+                <ul>
+                    <li v-for="cor in cores"> {{ cor }} </li>
+                </ul>
+            </div>
+            <input v-model="cor">
+            <button @click="cores.push(cor)">Adicionar</button>
+            <hr>
+            <button @click="ordernar(cores)">Ordernar Alfabeticamente</button>
+            <button @click="inverter(cores)">Inverter</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                cor: null,
+                cores: ['vermelho', 'verde', 'amarelo', 'azul']
+            },
+            methods: {
+                ordernar(array) {
+                    array.sort((a, b) => a > b)    
+                },
+                inverter(array) {
+                    array.sort((a, b) => a < b)    
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

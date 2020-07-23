@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Aula 06 </title>
+</head>
+
+<body>
+    <!--Cria elemento 'app'-->
+    <div id="app">
+        <h1>{{titulo}}</h1>
+        <img v-bind:src="image" v-bind:alt="alt">
+    </div>
+
+    <!--Instalação do Vue.js-->
+    <script src="https://unpkg.com/vue"></script>
+
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                titulo: "Aula 06 - Vue.js do jeito ninja!",
+                image: "https://s3.amazonaws.com/creativetim_bucket/products/91/original/opt_nukp_vue_thumbnail.jpg?1534959644",
+                alt: "Vue.js is awesome!",
+            }
+        });
+    </script>
+</body>
+
+</html>

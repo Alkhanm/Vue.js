@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- O Vue.js utiliza uma sintaxe de templates baseada em HTML, 
+    permitindo que você vincule declarativamente o DOM renderizado aos dados da instância Vue. 
+    Todos os templates do Vue.js são compostos por HTML válido que pode ser compilado por navegadores compatíveis.
+    Internamente, Vue compila os templates dentro de funções de renderização de Virtual DOM. 
+    Combinado com o sistema de reatividade, Vue é capaz de identificar de forma inteligente 
+    a menor quantidade possível de componentes a serem “re-renderizados” e aplica o mínimo possível de manipulações 
+    DOM quando o estado da aplicação muda. -->
+</head>
+
+<body>
+
+
+    <div id="app">
+        <!-- INTERPOLAÇÕES: TEXTO -->
+        <div>
+            <!-- O 'data binding' mais básico, interpolando o texto com a sintaxe Mustache (chaves duplas)-->
+            <h1> Mensagem: {{ msg }}</h1>
+            <!-- As chaves duplas serão substituidas pelo contéudo da propriedade 'msg' -->
+            <div v-once> Mensagem Fixa: {{ msg }}
+                <!-- A diretiva 'v-once' impede que msg seja reativa nesse caso.
+                  -- Esse comportamente será estendido para todos os elementos filhos -->
+                <div> {{ msg }}</div>
+            </div>
+        </div>
+
+        <!-- INTERPOLAÇÕES: HTML -->
+        <div>
+            <!-- As chaves duplas interpretam os dados como texto simples. Para que HTML seja exibido, use a diretiva 'v-html' -->
+            <p>Interpolação textual: {{ rawHtml }}</p>
+            <p> Interpolação de HTML: <span v-html="rawHtml"></span></p>
+        </div>
+
+        <!-- INTERPOLAÇÕES: ATRIBUTOS HTML -->
+        <!-- Chaves duplas não podem ser usadas em atributos HTML. Para tal, use a diretiva 'v-bind' -->
+        <div>
+            <div v-bind:id="dynamicId()"> </div>
+
+            <!-- Se isButtonDisabled possui um valor null, undefined ou false, o atributo disabled 
+                nem mesmo será incluído no elemento <button> renderizado.-->
+            <button v-bind:disabled="isButtonDisabled">Botão</button>
+        </div>
+
+        <!-- INTERPOLAÇÕES: EXPRESSÕES JAVASCRIPT -->
+        <!-- Vue.js suporta todo o poder das expressões JavaScript dentro de qualquer tipo de data binding:  -->
+        <p> {{ number + 1  }} </p>
+        <p> {{ ok ? 'SIM' : 'NÃO'}} </p>
+        <p> {{ message.split('').reverse().join('') }} </p>
+        <!-- Essa expressões todas serão renderizadas com JS no escopo da instância Vue. 
+                 A única restrição é que cada 'binding' deve conter uma única expressão  -->
+        <!-- Nada disso funcionará:
+            {{ var a = 1 }} // isso é uma atribuição, e não uma expressão 
+            {{ if (ok) { return message } }} // controle de fluxo também não funciona, utilize expressões ternárias 
+
+        Atenção: Expressões em templates são restritas a um ambiente controlado 
+        e somente possuem acesso a uma lista de variáveis globais permitidas, como Math e Date. 
+        Você não deve tentar acessar variáveis globais definidas pelo usuário em uma expressão de template.    
+        -->
+        <div>
+
+        </div>
+    </div>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                msg: "Hello, world",
+                rawHtml: '<span style="color:red">sou vermelho</span>',
+                isButtonDisabled: true,
+                number: 1,
+                ok: true,
+                message: 'Olá, tudo bom?'
+            },
+            methods: {
+                dynamicId() {
+                    let id = Math.random() * 10;
+                    return id.toFixed(0)
+                }
+            },
+
+            //Função invocada automaticamente após a estrutura do Vue ser montada
+            mounted: function () {
+                this.msg = 'hello, people'
+                console.log(this.msg)
+            }
+        });
+
+    </script>
+</body>
+
+</html>

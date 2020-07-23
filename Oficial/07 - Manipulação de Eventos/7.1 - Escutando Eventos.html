@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <!-- ESCUTANDO EVENTOS -->
+        <div>
+            <!--A diretiva 'v-on' escuta eventos e pode ser usanda para executar algum JS quando um evento for disparado. -->
+            <p>Quantos cliques: {{ counter }}</p>
+            <button v-on:click="counter += 1">Adiciona 1</button>
+        </div>
+        <br>
+
+        <!-- METÓDOS EM MANIPULADORES -->
+        <div>
+            <!-- A lógica para muitos manipuladores de evento será mais complexa, 
+               - sendo assim manter diretamente código JavaScript no valor do atributo v-on não é viável. 
+               - É por isso que v-on também pode aceitar o nome de um método que você gostaria de chamar.-->
+            <button v-on:click="greet">Cumprimentar</button> <!-- 'greet' é um método -->
+        </div>
+        <br>
+
+        <!-- CHAMADA DE METÓDOS COM ARGUMENTOS -->
+        <div>
+            <!-- Em vez de fazer uma ligação apenas ao nome de um método, 
+               - também podemos chamar métodos com uma instrução JavaScript diretamente no v-on:-->
+            <button v-on:click="say('oi')">Comprimente</button>
+            <button @click="say('tchau')">Despeça-se</button> <!-- '@' é uma abreviação de 'v-on'-->
+            <!-- Às vezes, também precisamos acessar o evento original do DOM em um manipulador.
+               - Você pode passá-lo a um método usando a variável especial $event:-->
+            <button v-on:dblclick="warn('Form cannot be submitted yet.', $event)">Enviar</button>  
+        </div>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: { 
+                counter: 0,
+                name: 'Vue.js'
+            },
+            methods: {
+                greet(event){
+                    alert('Olá', this.name)
+                    if (event){ 
+                        alert(event.target.tagName) // mostra o nome do elemento HTML que iniciou o evento
+                    }
+                },
+                say(diga){
+                    alert(diga)
+                },
+                warn(message, event){
+                    //agora temos acesso ao evento nativo
+                    if (event)
+                        event.preventDefault()
+                    alert(message)
+                    console.log(event)
+                }
+
+            }
+        });
+    </script>
+</body>
+
+</html>

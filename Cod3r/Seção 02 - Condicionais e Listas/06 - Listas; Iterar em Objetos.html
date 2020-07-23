@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <style>
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <ul>
+            <li v-for="(pessoa, index) in pessoas"> <!-- Percorre a lista de pessoas -->
+                <div v-for="(valor, chave, index) in pessoa"> <!-- Percorre os atributos de cada pessoa -->
+                    {{chave}} - {{valor}} - ({{index}})
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: { 
+                cores: [ 'vermelho', 'verde', 'amarelo', 'azul'],
+                pessoas: [
+                    {nome: 'Ana', idade: 18, peso: 60},
+                    {nome: 'Maria', idade: 35, peso: 67},
+                    {nome: 'Marcos', idade: 22, peso: 90},
+                ]
+            },
+            methods: {
+                
+            }
+        });
+    </script>
+</body>
+
+</html>

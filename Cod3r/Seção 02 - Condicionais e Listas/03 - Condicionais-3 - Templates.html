@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- Isso mostrado/oculta todo esse bloco.
+             No entanto o elemento pai (a 'div') será renderizado caso logado seja true.
+        <div v-if="logado">
+            <p> Usuário logado: {{ nome }}</p>
+            <p>Perfil Admin</p>
+        </div> -->
+        <!--Usando template, mesmo se logado for true esse elemento 'template' ñ será renderizado. 
+            Funciona como um conteiner invisivel-->
+        <template v-if="logado">
+            <p> Usuário logado: {{ nome }}</p>
+            <p>Perfil Admin</p>
+        </template>
+
+        <p v-else-if="anonimo">Navegando como anônimo</p>
+        <p v-else> Nem um usuário logado.</p>
+        <button @click="logado = !logado"> {{ logado ? 'Sair': 'Entrar'}}</button>
+        <input type="checkbox" v-model="anonimo">
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: { 
+                nome: 'Maria',
+                logado: true,
+                anonimo: false
+            },
+            methods: {
+                
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <style>
+        #app { display: flex; justify-content: space-around;}
+        .demo { width: 100px; height: 100px; background-color:gray;}
+        .c1{ background-color: red;}
+        .c2 { background-color: green}
+        .c3 { background-color: aqua}
+
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- Sempre q clicado aplicarC1 muda de false/true e vice versa -->
+        <div @click="aplicarC1 = !aplicarC1" 
+             class="demo" 
+             :class="{c1: aplicarC1 }"> 
+        </div> 
+        <!-- Caso 'aplicarC1' seja true aplica a classe CSS 'c1' -->
+        <div @click="aplicarC2 = !aplicarC2"
+             class="demo"
+             v-bind:class="{c2: aplicarC2}">
+        </div>
+        <div @click="aplicarC3 = !aplicarC3"
+             class="demo"
+             :class="{c3: aplicarC3}">
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: { 
+                aplicarC1: false,
+                aplicarC2: false,
+                aplicarC3: false
+            
+            },
+            methods: {
+                
+            }
+        });
+    </script>
+</body>
+
+</html>

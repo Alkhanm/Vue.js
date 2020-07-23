@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"> </script>
+        <script> 
+            /* Cada instância Vue passa por uma série de etapas em sua inicialização - por exemplo, 
+             * é necessário configurar a observação de dados, compilar o template, montar a instância no DOM, 
+             * atualizar o DOM quando os dados forem alterados. 
+             * Ao longo do caminho, ocorrerá a invocação de alguns gatilhos de ciclo de vida, 
+             * oferecendo a oportunidade de executar lógicas personalizadas em etapas específicas. */
+
+             new Vue({
+                 data: {
+                     a: 1
+                 },
+                 // Por exemplo, o gatilho created pode ser utilizado para executar algo logo após a instância ser criada:
+                 created: function(){
+                     // 'this' aponta para instância Vue
+                     console.log('"a" é: ' + this.a)
+                 },
+                
+                /* Existem outros gatilhos como 'mounted', 'updated' e 'destroyed'. 
+                 * Qualquer gatilho de ciclo de vida é executado com seu contexto 'this' apontando para a instância Vue que o chamou
+                 * Atenção: Não utilize arrowFunctions ou callbacks em propriedas de opções, pois o 'this' não irá funcionar da msm forma.*/
+               
+                })
+        </script>
+    </body>
+</html>

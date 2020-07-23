@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+</head>
+
+<body>
+    <div id="app">
+        <!-- A diretiva v-if é usada para renderizar condicionalmente um bloco. 
+          - O bloco só será renderizado se a expressão da diretiva retornar um valor verdadeiro. -->
+        <h1 v-if="awesome">Vue é incrível!</h1>
+        <!-- Tbm é possivel usar o operador else (senão), caso o elemento acima não seja exibido esse aparecerá.
+           - Um elemento v-else deve seguir imediatamente um elemento v-if, caso contrário ou será reconhecido. -->
+        <h1 v-else>Oh não 😢</h1>
+
+        <!-- GRUPOS CONDICIONAIS -->
+            <!-- Usar v-if e v-for juntos não é recomendado. -->
+        <div>
+            <!-- Como v-if é uma diretiva, deve ser anexado a um único elemento. E se quisermos mais de um elemento?
+               - Podemos usar v-if em um elemento <template>, que serve como um invólucro invisível.
+               - O resultado final processado não incluirá o elemento <template>.-->
+            <template v-if="ok">
+                <h1>Título</h1>
+                <p>Parágrafo 1</p>
+                <p>Parágrafo 2</p>
+            </template>
+        </div>
+
+        <!-- V-ELSE-IF -->
+        <div>
+            <!-- O v-else-if, como o nome sugere, serve como um “bloco else if“ ao v-if. 
+               - Pode inclusive ser encadeado várias vezes:-->
+            <div v-if="type === 'A'">
+                A
+            </div>
+            <div v-else-if="type === 'B'">
+                B
+            </div>
+            <div v-else-if="type === 'C'">
+                C
+            </div>
+            <div v-else>
+                Não é A, B ou C
+            </div>
+        </div>
+
+        <!-- CONTROLANDO REUTILIZAÇÃO COM KEY -->
+        <div>
+            <!-- Vue busca renderizar elementos com a maior eficiência possível, os reutilizando em vez de renderizar do zero. 
+               - Além de ajudar o Vue a ser mais rápido, isto também traz vantagens úteis.
+               - Por exemplo, se você permite a seus usuários alternar entre múltiplos tipos de login:-->
+            <template v-if="loginType === 'username'">
+                <label>Usuário</label>
+                <input placeholder="Informe o nome de usuário">
+            </template>
+            <template v-else>
+                <label>E-mail</label>
+                <input placeholder="Informe o endereço de e-mail">
+            </template>
+            <!-- Alternar o loginType do código acima não irá limpar o que o usuário já tiver informado.
+               - Uma vez que ambos os templates usam os mesmos elementos, o <input> não é substituído, apenas seu placeholder.-->
+            <div>
+                <!-- Nem sempre isto é desejado, então Vue oferece um jeito de dizer “estes dois elementos são completamente separados, não os reutilize”. 
+                   - Adicione um atributo key com valores únicos: -->
+                <template v-if="loginType === 'username'">
+                    <label>Usuário</label>
+                    <input placeholder="Informe o nome de usuário" key="username-input">
+                </template>
+                <template v-else>
+                    <label>E-mail</label>
+                    <input placeholder="Informe o endereço de e-mail" key="email-input">
+                </template>
+                <br><button @click="alterarLogin()">Alterar login</button>
+                <!--Observe que os elementos <label> ainda são eficientemente reutilizados, uma vez que não possuem atributos key.-->
+            </div>
+
+            <!-- V-SHOW -->
+            </div>
+            <!-- Outra opção para mostrar condicionalmente um elemento é a diretiva v-show. A utilização é basicamente a mesma.
+               - A diferença é que o 'v-show' renderiza o elemento no DOM, mas o oculta, alterando o atributo 'display' do elemento. -->
+                <h1 v-show="ok">Olá!</h1>
+            <!-- De modo geral, v-if tem custo maior durante alternâncias de visibilidade, enquanto v-show tem custo maior na renderização inicial. 
+                 Então prefira v-show se precisar alternar a visibilidade de algo com muita frequência; 
+                 e prefira v-if se a condição não tem tanta probabilidade de se modificar durante a execução.-->
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                awesome: false,
+                ok: true,
+                type: 'B',
+                loginType: 'username'
+            },
+            methods: {
+                alterarLogin() {
+                    if (this.loginType === 'username') this.loginType = 'email'
+                    else this.loginType = 'username'
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>

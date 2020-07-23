@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- Quando escutamos eventos do teclado, precisamos muitas vezes verificar a ocorrência de teclas específicas.
+           - O Vue também permite a adição de modificadores v-on ao escutar eventos de teclado: -->
+        <div>
+            <!-- só chama `vm.submit()` quando o `key` é `Enter` -->
+            <input v-on:keyup.enter="submit()">
+            <!--Exemplos: .enter| .tab | .delete | .esc | .space | .up | .down | .left | .right -->
+            <!-- Você pode usar diretamente qualquer nome de chave válido exposto via KeyboardEvent.key 
+               - como modificadores, convertendo-os em kebab-case.-->
+            <input v-on:keyup.paga-down="submit()">
+            <!--No exemplo acima, o manipulador só será chamado se $event.key for igual a 'PageDown'.-->
+        </div>
+
+        <!--MODIFICAR '.exact' -->
+        <div>
+            <!-- dispara mesmo se Alt ou Shift também estiverem pressionados junto com Ctrl-->
+            <button v-on:click.ctrl="submit()">A</button>
+            <!-- dispara quando somente Ctrl estiver pressionado -->
+            <button v-on:click.ctrl.exact="submit">A</button>
+            <!-- dispara somente se não houverem teclas de sistema pressionadas -->
+            <button v-on:click.exact="submit">A</button>
+        </div>
+        <!-- MODIFICADORES DE MOUSE 
+            Estes modificadores restringem o manipulador a eventos disparados por um botão específico do mouse, 
+            respectivamente o botão da esquerda, o da direita e o central (quando existente).
+            .left | .right | .middle
+        -->
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+
+            },
+            methods: {
+                submit() {
+                    alert('Enviado!')
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

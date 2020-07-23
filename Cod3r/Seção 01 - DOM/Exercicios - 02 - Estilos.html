@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <style>
+        #efeito {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+        }
+
+        .destaque {
+            background-color: red;
+            width: 200px !important;
+        }
+
+        .encolher {
+            background-color: gray;
+            width: 50px !important;
+        }
+
+        .azul {
+            background-color: rgb(113, 113, 209) !important;
+            font-style: italic;
+        }
+
+        .maximizar {
+            width: 100%;
+            height: 100px;
+            background-color: rgb(216, 135, 135)
+        }
+
+        .barra-progresso {
+            height: 40px;
+            width: 100%;
+            border: 1px solid #000;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .progresso {
+            background-color: rgb(46, 201, 46);
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 1) Iniciar a execução do efeito usando botão. 
+        O efeito deve alternadamente trocar as classes "destaque" e
+        "encolher" para cada chamada de setInteval. Use a div abaixo
+	    com id "efeito" para associar as classes CSS. -->
+        <h2>#01</h2>
+        <div>
+            <div id="efeito" v-bind:class="contraste">
+            </div>
+            <button @click="iniciarEfeito">Iniciar Efeito</button>
+        </div>
+        <hr>
+
+        <!-- 2) Crie duas classes CSS e associe a div usando a
+		sintaxe de array -->
+        <h2>#02</h2>
+        <div v-bind:class="[{azul: true, maximizar: true}]">Estou com classes CSS :(</div>
+        <hr>
+
+        <!-- 3) Aplique na div abaixo a classe informada pelo usuário
+		(crie classe CSS de exemplo). -->
+        <h2>#03</h2>
+        <div>
+            <input v-model="classe" type="text">
+            <div v-bind:class="classe">Veja-me</div>
+        </div>
+        <hr>
+
+        <!-- 4) Aplique na div abaixo a classe informada pelo usuário e
+    outra classe usando o valor true/false (crie classes CSS de exemplo). -->
+        <h2>#04</h2>
+        <div>
+            <input v-model="classeInformada" type="text">
+            <input @input="setMaximizar" type="text">
+            <div v-bind:class="[classeInformada, {maximizar}]">Sou uma div</div>
+            <!-- Se a propriedade Vue.js e a class CSS tiverem o msm nome,
+                 ñ é preciso usar a sintaxe {maximixar : true} por exemplo, basta {maximizar}-->
+        </div>
+        <hr>
+
+        <!-- 5) Repita 3) mas utilizando estilos ao invés de classes CSS.
+    Associe os estilos a div abaixo  -->
+        <h2>#05</h2>
+        <div>
+            <input v-model="estilo" type="text">
+            <div v-bind:style="estilo">Opa</div>
+        </div>
+        <hr>
+
+        <!-- 6) Crie uma barra de progresso simples com setInterval 
+    e binding de estilo. -->
+        <h2>#06</h2>
+        <div>
+            <div class="barra-progresso">
+                <label class="progresso">{{tamanho}}</label>
+                <div class="progresso" v-bind:style="{width: tamanho}"> </div>
+            </div>
+            <hr>
+            <button v-bind:disabled="tamanho == 0 ? false : true" @click="iniciarProgresso">Iniciar</button>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                contraste: null,
+                classe: null,
+                classeInformada: null,
+                estilo: null,
+                maximizar: false,
+
+                tamanho: 0
+            },
+            methods: {
+                iniciarEfeito() {
+                    if (this.contraste === 'destaque')
+                        this.contraste = 'encolher'
+                    else this.contraste = 'destaque'
+                },
+                setMaximizar(event) {
+                    if (event.target.value === 'true') {
+                        this.maximizar = true
+                    } else this.maximizar = false
+                },
+                iniciarProgresso() {
+                    let valor = 0
+                    const temporizador = setInterval(() =>{
+                        valor++
+                        this.tamanho = valor+'%'
+                        if (valor === 100) 
+                            clearInterval(temporizador)
+                    }, 100)
+
+                }
+
+            }
+
+        });
+    </script>
+</body>
+
+</html>

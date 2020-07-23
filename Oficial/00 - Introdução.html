@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <div id="app">
+
+
+        <!-- INTERLIGAR ATRIBUTOS! -->
+        <span v-bind:title="message">
+            <!-- Liga o titulo do span com a string 'message' -->
+            Pare o mouse sobre mim e veja a dica interligada dinamicamente!
+        </span>
+
+        <!-- INTERLIGAR ATRIBUTOS (TWO-WAY BINDING)-->
+            <!-- Interliga os elementos da view com o estado da aplicação facilmente -->
+
+        <br><br>
+        <input v-model="message" > <!-- Liga o 'input' com o conteúdo da variavel 'message' -->
+
+        <!-- LAÇÕS -->
+        <ul>
+            <li v-for="item in products"> {{ item }} </li>
+        </ul>
+        <!-- CONDICIONAIS -->
+        <div>
+            <p v-if="seen">
+                <!-- faz a ligação com o atributo booleano 'seen' -->
+                Agora você me viu!
+            </p>
+            <p v-else>
+                Agora não viu...
+            </p>
+        </div>
+
+        <!-- AÇÕES -->
+             <!-- Para permitir q o usuário interaja com o aplicativo, podemos usar a diretiva 'v-on'  para anexar escutas a eventos 
+               - (event listeners) que invocam métodos em nossas instâncias Vue: -->
+        
+             <!-- Ao ser clicado chama o metodo ver() q irá mostrar ou não a mensagem -->
+        <button v-on:click="ver()"> Veja/desveja! </button>  
+        <p> {{ message }} </p>
+        <button v-on:click="inverter()">Inverter mensagem</button>
+
+        <!-- COMPONENTES -->
+        <ol>
+            <!-- Agora provemos cada todo-item com o objeto todo que ele representa, 
+               - de forma que seu conteúdo possa ser dinâmico.
+               - Também precisamos prover cada componente com uma "chave" -->
+            <todo-item
+             v-for="item in products"
+             v-bind:todo = "item"
+             v-bind:key = "item.id"
+            >
+            </todo-item>
+        </ol>
+    </div>
+    </div>
+
+
+    <!--Importação do 'Vue.js' -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+        /* No Vue.js, uma componente é essencialmente uma instância Vue com opções predefinidas.
+         */
+        // Cria um componente Vue.js 
+        Vue.component('todo-item', {
+            props: ['todo'],
+            // O componente todo-item agora aceita uma "prop", que é como um atributo personalizado.
+            // Esta propriedade foi chamada de "todo".
+            template: '<li> {{ todo }} </li>'
+        })
+
+        /* Instância o Vue.js como um objeto
+         * Um app vue.js se aclopa a apenas um elemento do DOM
+         */
+        const app = new Vue({
+            el: '#app', // Neste caso o 'app' que é o elemento raiz            data: {
+            data: {
+                products: [
+                    'boots',
+                    'Jacket',
+                    'Hiking socks'
+                ],
+                message: 'Você carregou esta página em ' + new Date().toLocaleString(),
+                seen: true,
+                click: 0
+            },
+            methods: {
+                ver() {
+                    if (this.seen) this.seen = false
+                    else this.seen = true
+                },
+                inverter(){
+                    this.click++
+                    const oldMessage = this.message
+
+                    if(this.click%2 === 0) this.message = oldMessage 
+                    else this.message = this.message.split('').reverse().join('')
+                }
+            }
+
+        })
+        
+    </script>
+</body>
+
+
+</html>

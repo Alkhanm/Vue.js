@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+</head>
+
+<body>
+    <!-- Uma necessidade comum de interligação de dados é manipular as classes dos elementos e seus estilos inline. 
+       - Uma vez que ambos são atributos, podemos usar v-bind para lidar com eles: 
+       - apenas precisamos calcular uma String final com nossas expressões. 
+       - No entanto, mexer com concatenação é irritante e propenso a erros. 
+       - Por esta razão, Vue fornece aprimoramentos especiais quando v-bind é usado com class e style. 
+       - Além de Strings, as expressões também podem avaliar Objetos ou Arrays.-->
+    <div id="app">
+
+        <!-- BINDING HTML CLASSES -->
+        <div>
+            <!-- A sintaxe abaixo define que a presença da classe 'active' depende da veracidade de 'isActive' -->
+            <div v-bind:class="{ active: isActive }">
+            </div>
+            <!-- Vc pode ter varias classes alternadas através do binding. Além disso, v-bind:class pode coexistir com o atributo class normal -->
+            <div class="static" v-bind:class="{ active: isActive, 'text-danger': hasError }">
+            </div>
+            <!-- O objeto vinculado não precisa estar diretamente no template. O exemplo abaixo faz o mesmo que o acima: -->
+            <div class="static" v-bind:class="classObject">
+            </div>
+            <!-- Tbm é possivel fazer a ligação utilizando um dado computado -->
+        </div>
+
+        <!-- SINTAXE DE ARRAY -->
+        <div>
+            <!--Podemos passa um Array para 'v-bind:class' para aplicar toda uma lista de classes: -->
+            <div v-bind:class="[activeClass, errorClass]"> </div>
+            <!-- Operação condional. Nesse caso aplica-se a classe 'activeClass' apenas se 'isActive' for verdadeiro-->
+            <div v-bind:class="[isActive ? activeClass : '', errorClass]"></div>
+            <!--Alternativamente pode-se usar: -->
+            <div v-bind:class="[{activo : isActive}, errorClass]"></div>
+        </div>
+
+        <!-- CSS: SINTAXE DE OBJETO -->
+        <div>
+            <!-- A sintaxe de objeto para v-bind:style é bastante simples - parece quase CSS, mas em um objeto JavaScript. -->
+            <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"> </div>
+            <!-- Muitas vezes é uma boa ideia vincular um objeto diretamente no template para que fique mais limpo. -->
+            <div v-bind:style="styleObject"> </div>
+            <div v-bind:style="[baseStyles, styleObject]"></div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                isActive: true,
+                hasError: false,
+                
+                classObject: {
+                    active: true,
+                    'text-danger': false
+                },
+                activeClass: 'active',
+                errorClass: 'text-danger',
+
+                activeColor: 'red',
+                fontSize: 30,
+                styleObject: {
+                    color:'red',
+                    fontSize: '13px'
+                },
+                baseStyles:{
+
+                }
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>

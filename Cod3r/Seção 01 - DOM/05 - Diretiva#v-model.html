@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Aula 05 </title>
+</head>
+
+<body>
+    <!--Cria elemento 'app'-->
+    <div id="app">
+        <h1>{{titulo}}</h1>
+        <input id="nome" type="text" v-model="nome">
+        <br><br>
+        <input id="telefone" type="text" v-model="telefone">
+        <br><br>
+        <input type="checkbox" value="TV" v-model="interesses">TV<br>
+        <input type="checkbox" value="Internet" v-model="interesses">Internet<br>
+        <input type="checkbox" value="Leitura" v-model="interesses">Leitura<br>
+        <input type="checkbox" value="Cinema" v-model="interesses">Cinema<br>
+        <br><br>
+        <label for="">Região:</label>
+        <select v-model="conheceu">
+            <option value="Go">Goias</option>
+            <option value="SP">São Paulo</option>
+            <option value="TO">Tocantins</option>
+            <option value="RG">Rio Grande</option>
+        </select>
+        <br><br>
+        <button>Enviar</button>
+        <br>
+        <br>Nome: {{nome}}
+        <br>
+        <br>Telefone: {{telefone}}
+        <br>
+        <br>interesses: {{interesses}}
+        <br>
+        <br>Região: {{conheceu}}
+    </div>
+
+    <!--Instalação do Vue.js-->
+    <script src="https://unpkg.com/vue"></script>
+
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                titulo: "Aula 05 - Vue.js do jeito ninja!",
+                nome: "",
+                telefone: "",
+                conheceu: "",
+                interesses: [],
+            }
+        });
+    </script>
+</body>
+
+</html>

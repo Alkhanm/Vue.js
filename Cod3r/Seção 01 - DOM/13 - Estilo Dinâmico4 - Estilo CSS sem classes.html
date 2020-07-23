@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <style>
+        .caixas {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .demo {
+            width: 100px;
+            height: 100px;
+            background-color: gray;
+        }
+
+        .c1 {
+            background-color: red;
+        }
+
+        .c2 {
+            background-color: green
+        }
+
+        .c3 {
+            background-color: aqua
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="caixas">
+            <!-- Sempre q clicado aplicarC1 muda de false/true e vice versa -->
+             <!-- Associa a propriedade CSS a um atributo do Vue.js -->
+            <div class="demo" :style="{'background-color': cor}"> 
+            <!-- Tudo o que está entre {} é interpretado como JS e depois vira CSS, 
+                 no entanto em JS alguns caracteres aceitos em CSS ñ são aceitos, por isso é necessário o uso de aspas -->
+            </div>
+            <!-- Caso 'aplicarC1' seja true aplica a classe CSS 'c1' -->
+            <div class="demo" :style="{width: definirLargura}">
+            </div>
+            <div class="demo c3" @wheel="grau = grau + 10" :style="{transform: girar}">
+            </div>
+        </div>
+        <hr>
+        <input type="text" v-model="cor"> <!-- Associa o input a variavel 'cor', sempre que o input mudar a div troca de cor-->
+        <input type="number" v-model="largura">
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                cor: 'blue',
+                grau: 0,
+                largura: 100
+            },
+            computed: {
+                girar() {
+                    if (this.grau < 360)
+                        return `rotate(${this.grau}deg)`
+                    this.grau = 0
+                    return `rotate(${this.grau}deg)`
+                },
+                definirLargura(){
+                    if (this.largura > 100)
+                        return this.largura + 'px'
+                    return 100 + 'px'
+                    
+                }
+            },
+            methods: {
+                
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+</head>
+
+<body>
+    <div id="exemplo">
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+        /* Instâncias Vue expõem uma quantidade relevante de propriedades e métodos. 
+         * Estes são diferenciados pelo prefixo '$' para ñ confundi-los com propriedades definidas pelo usuário.
+         * Por exemplo:
+         */
+        var data = { a: 1 }
+
+        var vm2 = new Vue({
+            el: '#exemplo',
+            data: data
+        })
+
+        console.log(vm2.$data === data) // => true
+        console.log(vm2.$data) // acessa o objeto data dentro da instância. Usando 'vm2.data' não daria certo.
+        console.log(vm2.$el === document.getElementById('exemplo')) // O elemento DOM raíz que a instância do Vue está gerenciando.
+
+
+        // $watch é um método da instância
+        vm.$watch('a', function (newValue, oldValue) {
+            // Esta função será executada quando 'vm.a' mudar
+            console.log('mudou!')
+        })
+
+    </script>
+</body>
+
+</html>
