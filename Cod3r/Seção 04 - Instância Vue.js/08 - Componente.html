@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+</head>
+
+<body>
+    <div id="app">
+        <comp></comp>
+        <comp></comp>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+        // const dados = {
+        //     aula: 'Aula - Usando $refs',
+        //     modulo: 'Módulo: Instância Vue'
+        // }
+
+        /* Registra um componente na instância Vue de forma global */
+        Vue.component('comp', {
+            template: ` 
+                <div>
+                    <h2> {{aula}} </h2> 
+                    <h2> {{modulo}} </h2>
+                    <button @click="alterarAula">Alterar aula</button>
+                    <button @click="alterarModulo">Alterar modulo</button>
+                </div>
+            `,
+        
+            /* No atributo 'data' de um componente deve ser declarada um função que retorna um objeto
+             * Se declarado da mesmo forma q na instância Vue, todos os componentes apontariam para os mesmos dados (estado compartilhado) 
+             * Exemplo: data : { return dados} */
+            data: function () {
+                return {
+                    aula: 'Aula - Usando $refs',
+                    modulo: 'Módulo: Instância Vue'
+                }
+            },
+            methods: {
+                alterarAula() {
+                    this.aula += '#'
+                },
+                alterarModulo() {
+                    this.modulo += '#'
+                }
+            }
+        })
+
+        const vm = new Vue({
+            el: "#app",
+        })
+    </script>
+</body>
+
+</html>

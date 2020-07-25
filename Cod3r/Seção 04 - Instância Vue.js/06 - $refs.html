@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+</head>
+
+<body>
+
+    <div id="app">
+        <h2 ref="aulaRef"> {{aula}} </h2> <!--Cria uma referencia para o acessa deste elemento na DOM -->
+        <h2> {{modulo}} </h2>
+        <button @click="alterarAula">Alterar aula</button>
+        <button @click="alterarModulo">Alterar modulo</button>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: { 
+                aula: 'Aula - Usando $refs',
+                modulo: 'Módulo: Instância Vue'
+            },
+            methods: {
+                alterarAula(){
+                    this.aula += '#'
+                    //console.log(this.$refs.aulaRef.innerText)
+                },
+                alterarModulo(){
+                    this.modulo += '#'
+                }
+            }
+        })
+        /* Acessa o elemento na DOM e altera o seu valor.
+         * A operação é executada fora do escopo da instância Vue, portanto esse valor não será reativo. 
+         * Esse tipo de alteração ñ é incentivada */
+        vm.$refs.aulaRef.innerText = "Valor alterado diretamente"
+    </script>
+</body>
+
+</html>

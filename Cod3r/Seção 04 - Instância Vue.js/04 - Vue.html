@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{ nome}} - {{ sobrenome }}
+        <br>
+        {{ 12 * 8}}
+    </div>
+    <script>
+        function MeuVue(params){
+            this.$el = document.querySelector(params.el)
+            this.$data = params.data
+
+            for (let atr in this.$data){
+                Object.defineProperty(this, atr, {
+                    get: () => {
+                        return this.$data[atr]
+                    },
+                    set: (value) => {
+                        this.$data[atr] = value
+                    }
+                })
+            }
+            //interpolação
+            const regex = /\{\{([\s\w)(,.+*-]*)\}\}/g
+            this.$el.innerHTML = this.$el.innerHTML.replace(regex, (match, $1) =>{
+                const value = this[$1.trim()]
+                return value ? value : eval($1)
+            })
+        }
+
+        const vm = new MeuVue({
+            el: '#app',
+            data:{
+                nome: 'Maria',
+                sobrenome: 'Sousa'
+            }
+        })
+        
+        //a função getter é chamada automaticamente
+        console.log(vm.nome)
+
+        //função setter chamada automaticamente
+        vm.$data.nome = 'Mariana'
+        console.log(vm.$data.nome)
+    </script>
+</body>
+</html>

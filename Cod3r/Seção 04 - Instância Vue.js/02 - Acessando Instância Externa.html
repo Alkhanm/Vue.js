@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+</head>
+
+<body>
+    <div id="app1">
+        {{titulo1}}
+        <button @click="alterar">Alterar</button>
+    </div>
+    <div id="app2">
+        {{titulo2}}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const vm1 = new Vue({
+            el: "#app1",
+            data: {
+                titulo1: 'Test1'
+            },
+            methods: {
+                alterar(){
+                    vm2.titulo2 += '!!!' //acessa a propriedade 'titulo2' da instância 'vm2'
+                }
+            }
+        });
+        const vm2 =new Vue({
+            el: "#app2",
+            data: {
+                titulo2: 'Test2'
+            },
+            methods: {
+
+            }
+        });
+
+        /* A instância Vue pode ser acessada externamente através do JS tbm.
+         * No entanto, cuidado! Vue possui um controle sobre seus elementos internamente. 
+         * Alterá-los fora do contexto pode gerar comportamentos imprevistos.
+         * Caso seja realmente necessario acessar a instância, tente ñ alterar valores, mas apenas mostrar/listar
+         */
+        setTimeout(()=>{
+            vm1.titulo1 = 'Alterado pelo timer!'
+        }, 1000)
+    </script>
+</body>
+
+</html>                

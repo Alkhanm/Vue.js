@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+
+    <div id="app">
+        <h3>Quantos contadores: </h3>
+        <button @click="qntContador++">Contador</button>
+        <div v-for="c in qntContador">
+            <comp-contador></comp-contador>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // REGISTRO GLOBAL DE COMPONENTE
+        Vue.component('comp-contador', {
+            template:
+            ` 
+             <div>
+               <span>{{contador}}</span>
+               <button @click="contador++">+</button>
+               <button @click="contador--">-</button>
+              </div>
+            `,
+            data() {
+                return {
+                    contador: 0
+                }
+            }
+        }
+        )
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                qntContador: 2
+            }
+        });
+    </script>
+</body>
+
+</html>

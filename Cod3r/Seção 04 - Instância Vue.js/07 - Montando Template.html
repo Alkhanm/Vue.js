@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+</head>
+
+<body>
+
+    <div id="app">
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const vm = new Vue({
+            //el: "#app",
+            // cria o template abaixo com os elementos definidos.
+            template: ` 
+                <div>
+                    <h2> {{aula}} </h2> 
+                    <h2> {{modulo}} </h2>
+                    <button @click="alterarAula">Alterar aula</button>
+                    <button @click="alterarModulo">Alterar modulo</button>
+                </div>
+            `,
+            data: {
+                aula: 'Aula - Usando $refs',
+                modulo: 'Módulo: Instância Vue'
+            },
+            methods: {
+                alterarAula() {
+                    this.aula += '#'
+                },
+                alterarModulo() {
+                    this.modulo += '#'
+                }
+            }
+        })
+        /* monta o template Vue a partir desse elemento com id 'app' */
+        vm.$mount('#app') 
+        /* monta o template, mas fica indefinido pois ainda falta definir o elemento onde ele será construido */
+        vm.$mount()
+    </script>
+</body>
+
+</html>

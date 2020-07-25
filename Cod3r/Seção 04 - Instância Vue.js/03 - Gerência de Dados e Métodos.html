@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+</head>
+
+<body>
+    <div id="app">
+        {{titulo}}
+        {{novaInfo}}
+        <br>
+        <button @click="alterar">Alterar</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                titulo: 'Test'
+            },
+            methods: {
+                alterar(){
+                    console.log(this.novaInfo)
+                    this.titulo += '!'
+                }
+            }
+        });
+        {
+            /* Adiciona um propriedade a instância Vue, mas por ter sido adicionada fora do contexto, ñ é reativa.
+             * Assim não pode ser invocado dentro do HTML.
+             */
+            vm.novaInfo = 'testeee' 
+            console.log(vm.novaInfo)
+        }
+    </script>
+</body>
+
+</html>                
