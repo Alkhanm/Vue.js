@@ -1,0 +1,96 @@
+<template>
+  <div id="app">
+    <h1>Super Quiz</h1>
+    <transition name="flip" mode="out-in">
+      <Question
+        v-if="questionMode"
+        :question="questions[currentQuestion]"
+        @answered="showResult($event)"
+      />
+      <Result v-else :result="result" @confirmed="nextQuestion()" />
+    </transition>
+  </div>
+</template>
+
+<script>
+import questions from "./util/questions.js";
+import Question from "./components/Question";
+import Result from "./components/Result";
+
+export default {
+  components: { Question, Result },
+  data() {
+    return {
+      result: false,
+      questionMode: true,
+      questions, //recebe o array importado
+      currentQuestion: 0,
+    };
+  },
+  methods: {
+    showResult(result) {
+      this.result = result;
+      this.questionMode = false;
+    },
+    nextQuestion() {
+      let r = Math.random() * questions.length;
+      this.questionMode = true;
+      this.currentQuestion = parseInt(r);
+      console.log(this.currentQuestion);
+    },
+  },
+};
+</script>
+
+<style>
+body {
+  background: linear-gradient(to right, rgb(0, 0, 70), rgb(28, 181, 224));
+  font-family: "Oswald", sans-serif;
+  color: #fff;
+  height: 100vh;
+}
+
+#app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#app h1 {
+  font-weight: 200;
+  font-size: 4rem;
+}
+
+@keyframes flip-out {
+  from {
+    /*O componente inicia em 0 grau, estado normal */
+    transform: rotateY(0deg);
+  }
+  to {
+    /*Aqui o componente gira até ficar totalmente na lateral (90º), de forma que ele praticamente some de vista*/
+    transform: rotateY(90deg);
+  }
+}
+
+@keyframes flip-in {
+  from {
+    /**Faz o processo inverso, pega o componente  */
+    transform: rotateY(90deg);
+  }
+  to {
+    transform: rotateY(0deg);
+  }
+}
+
+.flip-enter-active {
+  animation: flip-in 0.3s ease;
+}
+
+.flip-leave-active {
+  animation: flip-out 0.3s ease;
+}
+</style>
