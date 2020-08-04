@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="container-fluid">
-      <h1>Animações</h1>
-       <div v-show="true">
+    <h1>Animações</h1>
+    <div v-show="true">
       <hr />
       <b-button class="mb-4" variant="primary" @click="exibir = !exibir">Mostrar mensagem</b-button>
       <!-- Container Vue onde irá ocorrer uma efeito de transição -->
@@ -58,13 +58,11 @@
       <b-button @click="componenteSelecionado = 'AlertaAdvertencia'">Alerta</b-button>
       <hr />
     </div>
-    <hr>
+    <hr />
     <b-button @click="addAluno()" class="mb-4">Adicionar aluno</b-button>
     <transition-group name="slide" mode="out-in" tag="div">
       <b-list-group v-for="(aluno, i) in alunos" :key="aluno">
-        <b-list-group-item @click="removerAluno(i)" >
-          {{aluno}}
-        </b-list-group-item>
+        <b-list-group-item @click="removerAluno(i)">{{aluno}}</b-list-group-item>
       </b-list-group>
     </transition-group>
   </div>
@@ -89,9 +87,7 @@ export default {
   },
   methods: {
     addAluno() {
-      const s = Math.random()
-        .toString(36)
-        .substring(2);
+      const s = Math.random().toString(36).substring(2);
       this.alunos.push(s);
     },
     removerAluno(indice) {
