@@ -25,7 +25,6 @@ Vue.use({
         })
         /* Intercepta as requisições feitas pela aplicação */
         Vue.prototype.$_http.interceptors.request.use(config => { /*No argumento config ficam as informações acerca da requisição realizada*/
-            console.log(config.method)
             /* Exemplo de uso. Faz com q toda requisição posto passe a ser put */
             // if (config.method == post) {
             //   config.method = put;

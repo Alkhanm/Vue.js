@@ -9,4 +9,3 @@ Vue.filter('inverter', function (valor) {
 new Vue({
 	render: h => h(App)
 }).$mount('#app')
-np
