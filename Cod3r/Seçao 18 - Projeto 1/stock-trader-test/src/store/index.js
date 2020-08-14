@@ -20,8 +20,8 @@ export default new vuex.Store({
     },
   },
   mutations: {
-    addStocks(state, payload) {
-      state.stocks = payload
+    addStocks(state, stocks) {
+      state.stocks = stocks
     },
     addUser(state, user) {
       state.user = user
